@@ -6,6 +6,7 @@ namespace Pieces
     public class King : Piece
     {
         public King(Cell cell, GameObject prefab, Transform root, Side side) : base(cell, prefab, root, side) {}
+        public override int HeuristicScore => 20;
 
         public override List<Cell> AvailableMoves()
         {
@@ -28,7 +29,7 @@ namespace Pieces
             return availableMoves;
         }
 
-        protected override bool ValidateCell(ICollection<Cell> availableMoves, Cell cell)
+        protected override bool ValidateCell(List<Cell> availableMoves, Cell cell)
         {
             if (cell is null) return false; // King will check out-of-board cells, skipping them
 

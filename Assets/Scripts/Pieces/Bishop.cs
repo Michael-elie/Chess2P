@@ -1,11 +1,15 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SocialPlatforms.Impl;
 
 namespace Pieces
 {
     public class Bishop : Piece
     {
+       
         public Bishop(Cell cell, GameObject prefab, Transform root, Side side) : base(cell, prefab, root, side) {}
+
+        public override int HeuristicScore => 3;
 
         public override List<Cell> AvailableMoves()
         {

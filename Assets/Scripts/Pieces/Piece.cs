@@ -15,6 +15,7 @@ namespace Pieces
         public PieceBehaviour Behaviour { get; private set; }
         public Side Side { get; private set; }
         public bool HasMoved { get; set; }
+        public abstract int HeuristicScore { get; }
         
         public bool IsTheKing => this.GetType() == typeof(King);
         public bool IsNotTheKing => this.GetType() != typeof(King);
@@ -52,7 +53,7 @@ namespace Pieces
         
         public abstract List<Cell> AvailableMoves();
         
-        protected virtual bool ValidateCell(ICollection<Cell> availableMoves, Cell cell)
+        protected virtual bool ValidateCell(List<Cell> availableMoves, Cell cell)
         {
             if (cell is null) throw new IndexOutOfRangeException($"{GetType().Name} shouldn't try to validate any cell out of board !");
 

@@ -7,6 +7,8 @@ namespace Pieces
     {
         public Queen(Cell cell, GameObject prefab, Transform root, Side side) : base(cell, prefab, root, side) {}
 
+        public override int HeuristicScore => 10;
+        
         public override List<Cell> AvailableMoves()
         {
             List<Cell> availableMoves = new List<Cell>();
@@ -19,7 +21,7 @@ namespace Pieces
             return availableMoves;
         }
         
-        private void GetDiagonalCells(ICollection<Cell> availableMoves, int currentColumn, int currentRow)
+        private void GetDiagonalCells(List<Cell> availableMoves, int currentColumn, int currentRow)
         {
             for (int column = currentColumn + 1, row = currentRow + 1; row < Matrix.BoardSize && column < Matrix.BoardSize; row++, column++) // Upward-right
             {
@@ -50,7 +52,7 @@ namespace Pieces
             }
         }
         
-        private void GetAlignedCells(ICollection<Cell> availableMoves, int currentColumn, int currentRow)
+        private void GetAlignedCells(List<Cell> availableMoves, int currentColumn, int currentRow)
         {
             for (int i = currentRow + 1; i < Matrix.BoardSize; i++) // Upward
             {

@@ -6,7 +6,9 @@ namespace Pieces
     public class Knight : Piece
     {
         public Knight(Cell cell, GameObject prefab, Transform root, Side side) : base(cell, prefab, root, side) {}
-
+        
+        public override int HeuristicScore => 3;
+        
         public override List<Cell> AvailableMoves()
         {
             List<Cell> availableMoves = new List<Cell>();
@@ -29,7 +31,7 @@ namespace Pieces
             return availableMoves;
         }
 
-        protected override bool ValidateCell(ICollection<Cell> availableMoves, Cell cell)
+        protected override bool ValidateCell(List<Cell> availableMoves, Cell cell)
         {
             if (cell == null) return false; // Knight will check out-of-board cells, skipping them
 
