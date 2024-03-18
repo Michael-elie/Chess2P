@@ -1,4 +1,8 @@
+using System;
+using Data;
 using Managers;
+using Unity.Mathematics;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
 namespace MinMax
@@ -10,18 +14,41 @@ namespace MinMax
       {
          Node firstNode = new Node(GameManager.CurrentPlayerTurn, GameManager.CurrentPlayerTurn,
             Matrix.GetCurrentGridSnapshot());
+         
+         foreach (Node child in firstNode.GetChilds()) // first getchilds for get the cell destination
+         {
+            MinMax(firstNode, 1, false);
+            //child._matrix = 
+         }
+         
          MinMax(firstNode, 2, true);
       }
 
-      public void MinMax(Node node, int depth, bool maximizingPlayer)
+      private int MinMax(Node node, int depth, bool maximizingPlayer)
       {
-         node.IsTerminal();
-         node.GetHeuristicValue();
-         foreach (Node child in node.GetChilds())
+         if (depth == 0 || node.IsTerminal() )
          {
-            
+            node.GetHeuristicValue();
          }
-         node.GetChilds();
+
+         int EvalValue;
+         if (maximizingPlayer)
+         { 
+            EvalValue = int.MaxValue;
+            foreach (Node child in node.GetChilds())
+            {
+               EvalValue = Mathf.Max(EvalValue, MinMax(child, depth - 1, false));
+            }
+         }
+         else // minimizingPlayer
+         {
+            EvalValue = int.MinValue;
+            foreach (Node child in node.GetChilds())
+            {
+               EvalValue =  Mathf.Min(EvalValue, MinMax(child, depth - 1, true));
+            }
+         }
+         return EvalValue;
       }
    }
 }

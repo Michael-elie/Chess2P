@@ -306,25 +306,28 @@ namespace Managers
             }
         }
 
-        private static void VirtualResolve(Cell[,] snapshot, Cell origin, Cell destination) // Resolve every possible movements from a snapshot
+        private static void VerifyifMoveIsValidForCheck( Cell[,] snapshot, Cell origin, Cell destination)
         {
-            Cell[,] virtualGrid = Matrix.DuplicateSnapshot(snapshot); // Preserve state for each piece' simulation
-            Cell virtualOrigin = virtualGrid[origin.Coordinates.Row, origin.Coordinates.Column];
-            Cell virtualDestination = virtualGrid[destination.Coordinates.Row, destination.Coordinates.Column];
+            if (!PlayerIsInCheck(snapshot, OpponentTurn))
+            {
+                if (_validCheckMoves.ContainsKey(destination.Occupant))
+                    _validCheckMoves[destination.Occupant].Add(destination);
+                else
+                    _validCheckMoves.Add(destination.Occupant, new List<Cell> { destination });
+            }
+        }
+        
+        public static void VirtualResolve( Cell[,] snapshot, Cell origin, Cell destination) // Resolve every possible movements from a snapshot
+        {
+            Cell virtualOrigin = snapshot[origin.Coordinates.Row, origin.Coordinates.Column];
+            Cell virtualDestination = snapshot[destination.Coordinates.Row, destination.Coordinates.Column];
                 
             virtualDestination.Occupant = virtualOrigin.Occupant;
             virtualDestination.Occupant.Cell = virtualDestination;
             virtualDestination.Occupant.HasMoved = true;
             virtualOrigin.Occupant = null;
-
-            if (!PlayerIsInCheck(virtualGrid, OpponentTurn))
-            {
-                if (_validCheckMoves.ContainsKey(virtualDestination.Occupant))
-                    _validCheckMoves[virtualDestination.Occupant].Add(virtualDestination);
-                else
-                    _validCheckMoves.Add(virtualDestination.Occupant, new List<Cell> { virtualDestination });
-            }
         }
+     
 
         #endregion
 
