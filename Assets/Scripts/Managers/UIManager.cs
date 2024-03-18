@@ -1,20 +1,25 @@
+using Data;
+using Enums;
 using TMPro;
 using UnityEngine;
 
-public class UIManager : MonoBehaviour
+namespace Managers
 {
-    public TMP_Text TurnPanel;
-
-    public static TMP_Text Turn;
-
-    private void Awake()
+    public class UIManager : MonoBehaviour
     {
-        Turn = TurnPanel;
-    }
+        public TMP_Text TurnPanel;
 
-    public static void UpdateTurn(Side side)
-    {
-        Turn.text = "Turn : " + side;
-        Turn.color = side == Side.Light ? Color.white : Color.gray;
+        public static TMP_Text Turn;
+
+        private void Awake()
+        {
+            Turn = TurnPanel;
+        }
+
+        public static void UpdateTurn(Side side)
+        {
+            Turn.text = "Turn : " + side;
+            Turn.color = side == Side.Light ? Color.white : Color.gray;
+        }
     }
 }

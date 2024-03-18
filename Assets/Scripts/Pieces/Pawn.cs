@@ -1,18 +1,19 @@
 ﻿using System.Collections.Generic;
-using UnityEngine;
+using Data;
+using Enums;
 
 namespace Pieces
 {
     public class Pawn : Piece
     {
-        public Pawn(Cell cell, GameObject prefab, Transform root, Side side) : base(cell, prefab, root, side) {}
-        
         public override int HeuristicScore => 1;
+        
+        public Pawn(Cell cell, Side side) : base(cell, side) {}
         
         public override List<Cell> AvailableMoves()
         {
             List<Cell> moves = new List<Cell>();
-            int currentColumn = this.Cell.Coordinates.Columns;
+            int currentColumn = this.Cell.Coordinates.Column;
             int currentRow = this.Cell.Coordinates.Row;
             int offset = (Side == Side.Light) ? 1 : -1;
             

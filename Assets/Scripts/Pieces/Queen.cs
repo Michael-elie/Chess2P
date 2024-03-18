@@ -1,23 +1,24 @@
 ﻿using System.Collections.Generic;
-using UnityEngine;
+using Data;
+using Enums;
 
 namespace Pieces
 {
     public class Queen : Piece
     {
-        public Queen(Cell cell, GameObject prefab, Transform root, Side side) : base(cell, prefab, root, side) {}
+        public Queen(Cell cell, Side side) : base(cell, side) {}
 
         public override int HeuristicScore => 10;
         
         public override List<Cell> AvailableMoves()
         {
             List<Cell> availableMoves = new List<Cell>();
-            int currentColumn = this.Cell.Coordinates.Columns;
+            int currentColumn = this.Cell.Coordinates.Column;
             int currentRow = this.Cell.Coordinates.Row;
             
             GetAlignedCells(availableMoves, currentColumn, currentRow);
             GetDiagonalCells(availableMoves, currentColumn, currentRow);
-
+            
             return availableMoves;
         }
         

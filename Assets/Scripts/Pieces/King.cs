@@ -1,17 +1,18 @@
 ﻿using System.Collections.Generic;
-using UnityEngine;
+using Data;
+using Enums;
 
 namespace Pieces
 {
     public class King : Piece
     {
-        public King(Cell cell, GameObject prefab, Transform root, Side side) : base(cell, prefab, root, side) {}
         public override int HeuristicScore => 20;
+        public King(Cell cell, Side side) : base(cell, side) {}
 
         public override List<Cell> AvailableMoves()
         {
             List<Cell> availableMoves = new List<Cell>();
-            int currentColumn = this.Cell.Coordinates.Columns;
+            int currentColumn = this.Cell.Coordinates.Column;
             int currentRow = this.Cell.Coordinates.Row;
 
             int[] rowOffsets = { -1, -1, -1,  0, 0,  1, 1, 1 };

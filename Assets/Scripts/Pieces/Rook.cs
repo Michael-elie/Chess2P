@@ -1,18 +1,19 @@
 ﻿using System.Collections.Generic;
-using UnityEngine;
+using Data;
+using Enums;
 
 namespace Pieces
 {
     public class Rook : Piece
     {
-        public Rook(Cell cell, GameObject prefab, Transform root, Side side) : base(cell, prefab, root, side) {}
+        public Rook(Cell cell, Side side) : base(cell, side) {}
 
         public override int HeuristicScore => 5;
         
         public override List<Cell> AvailableMoves()
         {
             List<Cell> availableMoves = new List<Cell>();
-            int currentColumn = this.Cell.Coordinates.Columns;
+            int currentColumn = this.Cell.Coordinates.Column;
             int currentRow = this.Cell.Coordinates.Row;
 
             for (int row = currentRow + 1; row < Matrix.BoardSize; row++) // Upward
