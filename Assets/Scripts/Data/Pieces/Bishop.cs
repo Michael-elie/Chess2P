@@ -9,7 +9,7 @@ namespace Data.Pieces
 
         public Bishop(Bishop copy) : base(copy) {}
 
-        public override float Heuristic
+        public override float HeuristicScore
         {
             get
             {

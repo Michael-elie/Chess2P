@@ -9,7 +9,7 @@ namespace Data.Pieces
         
         public Pawn(Pawn copy) : base(copy) {}
 
-        public override float Heuristic
+        public override float HeuristicScore
         {
             get
             {
@@ -27,15 +27,13 @@ namespace Data.Pieces
             
             Piece forward, forwardLeft, forwardRight, forwardPush;
 
-            try {
-                forward = Matrix.GetPiece(currentColumn, currentRow + offset);
-                forwardLeft = Matrix.GetPiece(currentColumn - 1, currentRow + offset);
-                forwardRight = Matrix.GetPiece(currentColumn + 1, currentRow + offset);
-                forwardPush = Matrix.GetPiece(currentColumn, currentRow + offset * 2);
-            }
-            catch {
-                return null;
-            }
+           
+            forward = Matrix.GetPiece(currentColumn, currentRow + offset);
+            forwardLeft = Matrix.GetPiece(currentColumn - 1, currentRow + offset);
+            forwardRight = Matrix.GetPiece(currentColumn + 1, currentRow + offset);
+            forwardPush = Matrix.GetPiece(currentColumn, currentRow + offset * 2);
+            
+        
             
             if (forwardLeft is not null && forwardLeft.Side != Side)
                 moves.Add(forwardLeft.Coordinates);

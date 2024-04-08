@@ -10,7 +10,7 @@ namespace Data.Pieces
 
         public King(King copy) : base(copy) {}
 
-        public override float Heuristic
+        public override float HeuristicScore
         {
             get
             {

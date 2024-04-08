@@ -12,7 +12,7 @@ namespace Data
         public Side Side { get; set; }
         public bool HasMoved { get; set; }
 
-        public abstract float Heuristic { get; }
+        public abstract float HeuristicScore { get; }
 
         public string Type => this.GetType().Name;
         public bool IsTheKing => this.GetType() == typeof(King);
@@ -27,6 +27,7 @@ namespace Data
 
         protected Piece(Piece copy)
         {
+            this.Coordinates = copy.Coordinates;
             this.Side = copy.Side;
             this.HasMoved = copy.HasMoved;
         }
@@ -79,7 +80,7 @@ namespace Data
         {
             if (ReferenceEquals(null, other)) return false;
             if (ReferenceEquals(this, other)) return true;
-            return Coordinates.Equals(other.Coordinates) && Side == other.Side && HasMoved == other.HasMoved && Heuristic.Equals(other.Heuristic);
+            return Coordinates.Equals(other.Coordinates) && Side == other.Side && HasMoved == other.HasMoved && HeuristicScore.Equals(other.HeuristicScore);
         }
 
         public override bool Equals(object obj)
@@ -92,7 +93,7 @@ namespace Data
 
         public override int GetHashCode()
         {
-            return HashCode.Combine(Heuristic);
+            return HashCode.Combine(HeuristicScore);
         }
 
         #endregion
