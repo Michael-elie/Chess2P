@@ -5,6 +5,7 @@ using UnityEngine;
 using View;
 using Data;
 using Enums;
+using UnityEngine.Rendering;
 
 namespace Managers
 {
@@ -36,6 +37,7 @@ namespace Managers
 
         private void Start()
         {
+          // Test PerformMovement(Matrix.GetCoordsByName("B2"),Matrix.GetCoordsByName("B4"));
             // StartCoroutine(StartGameLoop());
         }
 
