@@ -26,14 +26,11 @@ namespace Data.Pieces
             int offset = (Side == Side.Light) ? 1 : -1;
             
             Piece forward, forwardLeft, forwardRight, forwardPush;
-
-           
+            
             forward = Matrix.GetPiece(currentColumn, currentRow + offset);
             forwardLeft = Matrix.GetPiece(currentColumn - 1, currentRow + offset);
             forwardRight = Matrix.GetPiece(currentColumn + 1, currentRow + offset);
             forwardPush = Matrix.GetPiece(currentColumn, currentRow + offset * 2);
-            
-        
             
             if (forwardLeft is not null && forwardLeft.Side != Side)
                 moves.Add(forwardLeft.Coordinates);

@@ -42,6 +42,10 @@ namespace Data.Pieces
 
         protected override bool ValidateCell(ICollection<Coordinates> availableMoves, Coordinates coordsToCheck)
         {
+            if ((coordsToCheck.Column < 0 || coordsToCheck.Row < 0) || (coordsToCheck.Column > 7 || coordsToCheck.Row > 7)) {
+                return false;
+            }
+            
             Piece piece = Matrix.GetPiece(coordsToCheck);
 
             if (piece == null) {

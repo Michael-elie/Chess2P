@@ -13,7 +13,7 @@ namespace Managers
     public class GameManager : MonoBehaviour
     {
         [Header("Settings")] public Board Board;
-        [Range(1, 8)] public int AIDepth;
+        //[Range(1, 8)] public int AIDepth;
         public bool EnableStepByStep;
 
         public static Side CurrentPlayerTurn { get; private set; }

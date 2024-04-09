@@ -34,7 +34,7 @@ namespace Data.Pieces
                 int column = currentColumn + colOffsets[i];
 
                 Piece piece = Matrix.GetPiece(column, row);
-                ValidateCell(availableMoves, piece.Coordinates);
+                ValidateCell(availableMoves, new Coordinates(column, row));
             }
 
             return availableMoves;
@@ -42,6 +42,10 @@ namespace Data.Pieces
 
         protected override bool ValidateCell(ICollection<Coordinates> availableMoves, Coordinates coordsToCheck)
         {
+            if ((coordsToCheck.Column < 0 || coordsToCheck.Row < 0) || (coordsToCheck.Column > 7 || coordsToCheck.Row > 7)) {
+                return false;
+            }
+            
             Piece piece = Matrix.GetPiece(coordsToCheck);
             
             if (piece is not null) // If a piece exist at the provided coords...

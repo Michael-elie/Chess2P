@@ -238,7 +238,6 @@ namespace Data
             Grid[originCoords.Column, originCoords.Row] = null;
         }
         
-        
         public static void VirtualPerform(Piece[,] matrixCopy, Side player, Coordinates originCoords, Coordinates destinationCoords)
         {
             Piece origin = matrixCopy[originCoords.Column, originCoords.Row];
