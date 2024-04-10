@@ -9,7 +9,7 @@ namespace Data.Pieces
         
         public Knight(Knight copy) : base(copy) {}
         
-        public override float HeuristicScore
+        public override float Heuristic
         {
             get
             {
@@ -18,11 +18,11 @@ namespace Data.Pieces
             }
         }
 
-        public override List<Coordinates> AvailableMoves(Coordinates coordinates)
+        public override List<Coordinates> AvailableMoves()
         {
             List<Coordinates> availableMoves = new ();
-            int currentColumn = coordinates.Column;
-            int currentRow = coordinates.Row;
+            int currentColumn = this.Coordinates.Column;
+            int currentRow = this.Coordinates.Row;
 
             int[] columnsOffsets = { 1, 2,  2,  1, -1, -2, -2, -1 };
             int[] rowOffsets     = { 2, 1, -1, -2, -2, -1,  1,  2 };
@@ -31,32 +31,12 @@ namespace Data.Pieces
             {
                 int column = currentColumn + columnsOffsets[i];
                 int row = currentRow + rowOffsets[i];
-
-                Piece piece = Matrix.GetPiece(column, row);
                 
-                ValidateCell(availableMoves, coordinates);
+                availableMoves.Add(new Coordinates(column, row));
             }
 
+            ValidateMoves(availableMoves);
             return availableMoves;
-        }
-
-        protected override bool ValidateCell(ICollection<Coordinates> availableMoves, Coordinates coordsToCheck)
-        {
-            if ((coordsToCheck.Column < 0 || coordsToCheck.Row < 0) || (coordsToCheck.Column > 7 || coordsToCheck.Row > 7)) {
-                return false;
-            }
-            
-            Piece piece = Matrix.GetPiece(coordsToCheck);
-
-            if (piece == null) {
-                availableMoves.Add(coordsToCheck);
-                return true;
-            }
-
-            if (piece.Side == Side) return false;
-            
-            availableMoves.Add(coordsToCheck);
-            return false;
         }
     }
 }

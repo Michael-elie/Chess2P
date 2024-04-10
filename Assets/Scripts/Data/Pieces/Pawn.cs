@@ -18,11 +18,11 @@ namespace Data.Pieces
             }
         }
 
-        public override List<Coordinates> AvailableMoves(Coordinates coordinates)
+        public override List<Coordinates> AvailableMoves()
         {
             List<Coordinates> moves = new ();
-            int currentColumn = coordinates.Column;
-            int currentRow = coordinates.Row;
+            int currentColumn = this.Coordinates.Column;
+            int currentRow = this.Coordinates.Row;
             int offset = (Side == Side.Light) ? 1 : -1;
             
             Piece forward, forwardLeft, forwardRight, forwardPush;
@@ -45,7 +45,8 @@ namespace Data.Pieces
             
             if (forwardPush is null && !HasMoved)
                 moves.Add(new Coordinates(currentColumn, currentRow + offset * 2));
-            
+
+            ValidateMoves(moves);
             return moves;
         }
     }

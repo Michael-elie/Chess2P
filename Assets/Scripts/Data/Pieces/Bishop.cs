@@ -18,36 +18,26 @@ namespace Data.Pieces
             }
         }
 
-        public override List<Coordinates> AvailableMoves(Coordinates coordinates)
+        public override List<Coordinates> AvailableMoves()
         {
             List<Coordinates> availableMoves = new ();
-            int currentColumn = coordinates.Column;
-            int currentRow = coordinates.Row;
+            int currentColumn = this.Coordinates.Column;
+            int currentRow = this.Coordinates.Row;
             
             for (int column = currentColumn + 1, row = currentRow + 1; row < Matrix.BoardSize && column < Matrix.BoardSize; row++, column++) // Upward-right
-            {
-                if (!ValidateCell(availableMoves, coordinates))
-                    break;
-            }
+                availableMoves.Add(new Coordinates(column, row));
             
             for (int column = currentColumn - 1, row = currentRow + 1; row < Matrix.BoardSize && column >= 0; row++, column--) // Upward-left
-            {
-                if (!ValidateCell(availableMoves, coordinates))
-                    break;
-            }
+                availableMoves.Add(new Coordinates(column, row));
 
             for (int column = currentColumn + 1, row = currentRow - 1; row >= 0 && column < Matrix.BoardSize; row--, column++) // Downward-right
-            {
-                if (!ValidateCell(availableMoves, coordinates))
-                    break;
-            }
+                availableMoves.Add(new Coordinates(column, row));
 
             for (int column = currentColumn - 1, row = currentRow - 1; row >= 0 && column >= 0; row--, column--) // Downward-left
-            {
-                if (!ValidateCell(availableMoves, coordinates))
-                    break;
-            }
+                availableMoves.Add(new Coordinates(column, row));
 
+            ValidateMoves(availableMoves);
+            
             return availableMoves;
         }
     }

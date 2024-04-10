@@ -53,20 +53,29 @@ namespace Data
             };
         }
         
-        public abstract List<Coordinates> AvailableMoves(Coordinates coords);
+        public abstract List<Coordinates> AvailableMoves();
         
-        protected virtual bool ValidateCell(ICollection<Coordinates> availableMoves, Coordinates coordsToCheck)
+        protected virtual bool ValidateMoves(ICollection<Coordinates> availableMoves)
         {
-            Piece piece = Matrix.GetPiece(coordsToCheck);
-            
-            if (piece is not null) // If a piece exist at the provided coords...
+            foreach (Coordinates move in availableMoves) // Foreach valid moves detected, double-check the validity.
             {
-                if (piece.Side != Side) availableMoves.Add(coordsToCheck); // ...add the coords to valid moves if it is an opponent's piece.
-                return false; // Tell the check system to stop here and don't check behind any piece found anwyay.
-            }
+                if (move.Column is < 0 or > 7 || move.Row is < 0 or > 7) { // Filters-out falty moves outside the board and skip;
+                    availableMoves.Remove(move);
+                    continue;
+                }
+                
+                Piece destinationPiece = Matrix.GetPiece(move); // Here move should be always valid (inside the board bounds).
+
+                if (destinationPiece is not null) // If a piece exist at the provided coords...
+                {
+                    if (destinationPiece.Side == Side || destinationPiece.IsTheKing) availableMoves.Remove(move); // ...exclude it, if it's a allied piece.
+                    continue; // Skip to the next move;
+                }
             
-            availableMoves.Add(coordsToCheck); // No piece are in the coords so these coords are a valid move
-            return true; // Line of sight isn't blocked so the system can continue.
+                // At this point, the move should still be valid as the piece reference a empty cell (null)
+            }
+
+            return true;
         }
 
         #region Equality and Copy

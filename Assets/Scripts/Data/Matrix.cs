@@ -2,8 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using Enums;
+
 using View;
+using AI;
+using Enums;
 
 namespace Data
 {
@@ -218,7 +220,7 @@ namespace Data
 
         public static List<Coordinates> GetMoves(Piece piece)
         {
-            return piece.AvailableMoves(piece.Coordinates);
+            return piece.AvailableMoves();
         }
 
         public static void Perform(Side player, Coordinates originCoords, Coordinates destinationCoords)

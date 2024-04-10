@@ -18,40 +18,25 @@ namespace Data.Pieces
             }
         }
 
-        public override List<Coordinates> AvailableMoves(Coordinates coordinates)
+        public override List<Coordinates> AvailableMoves()
         {
             List<Coordinates> availableMoves = new ();
-            int currentColumn = coordinates.Column;
-            int currentRow = coordinates.Row;
+            int currentColumn = this.Coordinates.Column;
+            int currentRow = this.Coordinates.Row;
 
             for (int row = currentRow + 1; row < Matrix.BoardSize; row++) // Upward
-            {
-                Piece upwardCell = Matrix.GetPiece(currentColumn, row);
-                if (!ValidateCell(availableMoves, upwardCell.Coordinates))
-                    break;
-            }
+                availableMoves.Add(new Coordinates(currentColumn, currentRow));
             
             for (int row = currentRow - 1; row >= 0; row--) // Downward
-            {
-                Piece downwardCell = Matrix.GetPiece(currentColumn, row);
-                if (!ValidateCell(availableMoves, downwardCell.Coordinates))
-                    break;
-            }
+                availableMoves.Add(new Coordinates(currentColumn, currentRow));
             
             for (int column = currentColumn + 1; column < Matrix.BoardSize; column++) // Rightward
-            {
-                Piece rightwardCell = Matrix.GetPiece(column, currentRow);
-                if (!ValidateCell(availableMoves, rightwardCell.Coordinates))
-                    break;
-            }
+                availableMoves.Add(new Coordinates(currentColumn, currentRow));
 
             for (int column = currentColumn - 1; column >= 0; column--) // Leftward
-            {
-                Piece leftwardCell = Matrix.GetPiece(column, currentRow);
-                if (!ValidateCell(availableMoves, leftwardCell.Coordinates))
-                    break;
-            }
+                availableMoves.Add(new Coordinates(currentColumn, currentRow));
 
+            ValidateMoves(availableMoves);
             return availableMoves;
         }
     }
