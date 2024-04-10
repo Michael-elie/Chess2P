@@ -51,6 +51,8 @@ namespace AI
                     VirtualPerform(child);
                 }
             }
+
+            return children;
         }
         
         /// <summary>

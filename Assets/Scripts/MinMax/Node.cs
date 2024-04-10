@@ -60,7 +60,7 @@ namespace MinMax
          {
              if (piece == null) continue; // There is no piece
              // 1) Get the Available moves 
-            foreach ( Coordinates move in piece.AvailableMoves(piece.Coordinates) ) // For each moves this piece can achieve
+            foreach ( Coordinates move in piece.AvailableMoves() ) // For each moves this piece can achieve
             {
                 Piece[,] newmatrix = Matrix.DuplicateSnapshot(_matrix); // 2) Duplicate the matrix  
                 Matrix.VirtualPerform(newmatrix, _owner,piece.Coordinates,move);
